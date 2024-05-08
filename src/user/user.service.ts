@@ -13,22 +13,35 @@ export class UserService {
   ) {}
 
   async listUsers() {
-    const usersSaves = await this.userRepository.find();
+    const usersSaves = await this.userRepository.find({ relations: ['expenses'] });
     const usersList = usersSaves.map(
       (user) =>
-        new UserListDTO(user.id, user.username, user.email, user.password),
+        new UserListDTO(user.id, user.username, user.email, user.password, user.expenses),
     );
 
     return usersList;
   }
 
+  async findOneWithGastos(id: string): Promise<UserEntity> {
+    console.log(id);
+    return this.userRepository.findOne({
+      where: { id },
+      relations: ['expenses'],
+    });
+  }
+
   async singleListUser(id: string) {
-    const userSave = await this.userRepository.findOneBy({ id: id });
+    console.log(id)
+    const userSave = await this.userRepository.findOne({
+      where: { id },
+      relations: ['expenses'],
+    });
     const user = new UserListDTO(
       userSave.id,
       userSave.username,
       userSave.email,
       userSave.password,
+      userSave.expenses,
     );
 
     return user;
@@ -44,6 +57,7 @@ export class UserService {
       userSave.password,
       userSave.username,
       userSave.email,
+      userSave.expenses,
     );
 
     return user;

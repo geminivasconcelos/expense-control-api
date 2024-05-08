@@ -5,11 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
+import { ExpenseModule } from './expense/expense.module';
 
 @Module({
   imports: [
     UserModule,
     AuthModule,
+    ExpenseModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

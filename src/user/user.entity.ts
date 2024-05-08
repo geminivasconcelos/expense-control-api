@@ -1,3 +1,4 @@
+import { ExpenseEntity } from 'src/expense/expense.entity';
 import {
   Entity,
   Column,
@@ -5,6 +6,7 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -20,6 +22,10 @@ export class UserEntity {
 
   @Column({ name: 'password', length: 255, nullable: false })
   password: string;
+
+   // Relacionamento um-para-muitos com Gasto
+   @OneToMany(() => ExpenseEntity, expense => expense.user)
+   expenses: ExpenseEntity[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;
