@@ -34,16 +34,16 @@ export class UserService {
     return user;
   }
 
-  async singleListLogin(username: string, password: string) {
+  async singleListLogin(email: string, password: string) {
     const userSave = await this.userRepository.findOneBy({
-      username: username,
+      email: email,
       password: password,
     });
     const user = new UserListDTO(
       userSave.id,
       userSave.password,
       userSave.username,
-      userSave.email
+      userSave.email,
     );
 
     return user;
