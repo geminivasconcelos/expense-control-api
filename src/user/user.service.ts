@@ -15,7 +15,8 @@ export class UserService {
   async listUsers() {
     const usersSaves = await this.userRepository.find();
     const usersList = usersSaves.map(
-      (user) => new UserListDTO(user.id, user.username, user.email, user.password),
+      (user) =>
+        new UserListDTO(user.id, user.username, user.email, user.password),
     );
 
     return usersList;
@@ -23,13 +24,32 @@ export class UserService {
 
   async singleListUser(id: string) {
     const userSave = await this.userRepository.findOneBy({ id: id });
-    const user = new UserListDTO(userSave.id,userSave.username,  userSave.email, userSave.password);
+    const user = new UserListDTO(
+      userSave.id,
+      userSave.username,
+      userSave.email,
+      userSave.password,
+    );
+
+    return user;
+  }
+
+  async singleListLogin(username: string, password: string) {
+    const userSave = await this.userRepository.findOneBy({
+      username: username,
+      password: password,
+    });
+    const user = new UserListDTO(
+      userSave.id,
+      userSave.password,
+      userSave.username,
+      userSave.email
+    );
 
     return user;
   }
 
   async createUser(userEntity: UserEntity) {
-    console.log(userEntity);
     const possibleUser = await this.userRepository.exists({
       where: { email: userEntity.email },
     });

@@ -1,8 +1,8 @@
 export class UserListDTO {
   constructor(
-    readonly username: string,
-    readonly password: string,
-    readonly email: string,
     readonly id: string,
+    readonly password: string,
+    readonly username: string,
+    readonly email: string,
   ) {}
 }
