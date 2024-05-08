@@ -36,13 +36,13 @@ export class UserRepository {
   async deleteUser(uuid: string) {
     const user = this.searchByUuid(uuid);
 
-    this.users = this.users.filter((userSave) => userSave.uuid !== uuid);
+    this.users = this.users.filter((userSave) => userSave.id !== uuid);
 
     return user;
   }
 
   private searchByUuid(uuid: string) {
-    const possibleUser = this.users.find((userSave) => userSave.uuid === uuid);
+    const possibleUser = this.users.find((userSave) => userSave.id === uuid);
 
     if (!possibleUser) {
       throw new Error('User does not exist');

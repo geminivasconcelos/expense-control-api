@@ -11,14 +11,9 @@ import { EmailIsUnique } from '../validation/email-is-unique.validator';
 
 export class CreateUserDTO {
   @IsNotEmpty({
-    message: 'The name cannot be empty',
+    message: 'The username cannot be empty',
   })
-  name: string;
-
-  @IsNotEmpty({
-    message: 'The lastname cannot be empty',
-  })
-  lastName: string;
+  username: string;
 
   @IsEmail(undefined, { message: 'The email provided is invalid' })
   @IsNotEmpty()

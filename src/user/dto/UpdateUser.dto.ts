@@ -14,7 +14,7 @@ export class UpdateUserDTO {
     message: 'The name cannot be empty',
   })
   @IsOptional()
-  name: string;
+  username: string;
 
   @IsNotEmpty({
     message: 'The lastname cannot be empty',

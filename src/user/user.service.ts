@@ -15,28 +15,15 @@ export class UserService {
   async listUsers() {
     const usersSaves = await this.userRepository.find();
     const usersList = usersSaves.map(
-      (user) =>
-        new UserListDTO(
-          user.name,
-          user.lastname,
-          user.uuid,
-          user.cursos,
-          user.instituicoes,
-        ),
+      (user) => new UserListDTO(user.id, user.username, user.email, user.password),
     );
 
     return usersList;
   }
 
-  async singleListUser(uuid: string) {
-    const userSave = await this.userRepository.findOneBy({ uuid: uuid });
-    const user = new UserListDTO(
-      userSave.name,
-      userSave.lastname,
-      userSave.uuid,
-      userSave.cursos,
-      userSave.instituicoes,
-    );
+  async singleListUser(id: string) {
+    const userSave = await this.userRepository.findOneBy({ id: id });
+    const user = new UserListDTO(userSave.id,userSave.username,  userSave.email, userSave.password);
 
     return user;
   }
@@ -54,25 +41,6 @@ export class UserService {
   }
 
   async updateUser(uuid: string, userEntity: UpdateUserDTO) {
-    if (userEntity.cursos) {
-      const possibleUser = await this.userRepository.findOneBy({ uuid: uuid });
-      const distinctCursos = userEntity.cursos.filter(
-        (curso) =>
-          !possibleUser.cursos.some((dbCurso) => dbCurso.id === curso.id),
-      );
-      userEntity.cursos = distinctCursos.concat(possibleUser.cursos);
-    }
-    if (userEntity.instituicoes) {
-      const possibleUser = await this.userRepository.findOneBy({ uuid: uuid });
-      const distinctCursos = userEntity.instituicoes.filter(
-        (instituicao) =>
-          !possibleUser.instituicoes.some(
-            (dbInstituicao) => dbInstituicao.id === instituicao.id,
-          ),
-      );
-      userEntity.instituicoes = distinctCursos.concat(possibleUser.instituicoes);
-    }
-
     await this.userRepository.update(uuid, userEntity);
   }
 

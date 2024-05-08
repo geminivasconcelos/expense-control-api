@@ -30,12 +30,8 @@ export class UserController {
     const userEntity = new UserEntity();
     userEntity.email = dataUser.email;
     userEntity.password = dataUser.password;
-    userEntity.name = dataUser.name;
-    userEntity.lastname = dataUser.lastName;
-    userEntity.repeatPassword = dataUser.repeatPassword;
-    userEntity.cursos = dataUser.cursos;
-    userEntity.instituicoes = dataUser.instituicoes;
-    userEntity.uuid = uuid();
+    userEntity.username = dataUser.username;
+    userEntity.id = uuid();
 
     const returnCreateUser = await this.userService.createUser(userEntity);
     if (returnCreateUser.status === 409) {
@@ -47,11 +43,10 @@ export class UserController {
       return {
         message: 'User created successfully!',
         user: new UserListDTO(
-          userEntity.name,
-          userEntity.lastname,
-          userEntity.uuid,
-          userEntity.cursos,
-          userEntity.instituicoes,
+          userEntity.id,
+          userEntity.username,
+          userEntity.password,
+          userEntity.email,
         ),
       };
     }
