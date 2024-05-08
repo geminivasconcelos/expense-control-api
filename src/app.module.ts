@@ -9,6 +9,7 @@ import { AuthService } from './auth/auth.service';
 @Module({
   imports: [
     UserModule,
+    AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -18,6 +19,6 @@ import { AuthService } from './auth/auth.service';
     }),
   ],
   controllers: [],
-  providers: [],
+  providers: [AuthService],
 })
 export class AppModule {}
