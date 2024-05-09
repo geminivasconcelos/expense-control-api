@@ -23,7 +23,6 @@ export class UserService {
   }
 
   async findOneWithGastos(id: string): Promise<UserEntity> {
-    console.log(id);
     return this.userRepository.findOne({
       where: { id },
       relations: ['expenses'],
@@ -31,7 +30,6 @@ export class UserService {
   }
 
   async singleListUser(id: string) {
-    console.log(id)
     const userSave = await this.userRepository.findOne({
       where: { id },
       relations: ['expenses'],
