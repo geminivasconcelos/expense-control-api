@@ -1,13 +1,4 @@
-import {
-  IsArray,
-  IsEmail,
-  IsJSON,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-  MinLength,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, MinLength } from 'class-validator';
 import { UserEntity } from 'src/user/user.entity';
 
 export class CreateExpenseDTO {
@@ -29,7 +20,7 @@ export class CreateExpenseDTO {
   @MinLength(3, {
     message: 'Checks if the password is longer than 6 characteres',
   })
-  user: UserEntity;
+  user: string;
 
   @IsNumber()
   valueExpense: number;
