@@ -12,7 +12,7 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService,
   ) {}
-
+  
   async signIn(email: string, pass: string) {
     const user = await this.userService.singleListLogin(email, pass);
     if (user?.password !== pass) {
@@ -34,5 +34,9 @@ export class AuthService {
         },
       ),
     };
+  }
+
+  async checkToken(){
+
   }
 }
