@@ -1,7 +1,16 @@
 import { UserEntity } from 'src/user/user.entity';
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-@Entity('Expense')
+@Entity('expense')
 export class ExpenseEntity {
   @PrimaryGeneratedColumn('uuid') id: string;
 
@@ -19,7 +28,7 @@ export class ExpenseEntity {
 
   @ManyToOne(() => UserEntity, (user) => user.expenses)
   @JoinColumn({ name: 'userId' })
-  user: UserEntity;
+  user: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;
