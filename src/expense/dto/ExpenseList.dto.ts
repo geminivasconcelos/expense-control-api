@@ -9,6 +9,6 @@ export class ExpenseListDTO {
     readonly typePayment: string,
     readonly createdAt: string,
     readonly updatedAt: string,
-    readonly user: UserEntity,
+    readonly user: string,
   ) {}
 }
