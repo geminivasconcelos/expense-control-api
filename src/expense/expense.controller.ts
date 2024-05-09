@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { ExpenseEntity } from './expense.entity';
 import { CreateExpenseDTO } from './dto/CreateExpense.dto';
@@ -20,17 +28,18 @@ export class ExpenseController {
     expenseEntity.user = dataExpense.user;
     expenseEntity.id = uuid();
 
+    const returnCreateExpense = await this.expenseEervice.createExpense(expenseEntity);
     return {
       message: 'Expense created successfully!',
       expense: new ExpenseListDTO(
-        expenseEntity.id,
-        expenseEntity.name,
-        expenseEntity.typeExpense,
-        expenseEntity.valueExpense,
-        expenseEntity.typePayment,
-        expenseEntity.createdAt,
-        expenseEntity.updatedAt,
-        expenseEntity.user,
+        returnCreateExpense.id,
+        returnCreateExpense.name,
+        returnCreateExpense.typeExpense,
+        returnCreateExpense.valueExpense,
+        returnCreateExpense.typePayment,
+        returnCreateExpense.createdAt,
+        returnCreateExpense.updatedAt,
+        returnCreateExpense.user,
       ),
     };
   }
@@ -56,6 +65,19 @@ export class ExpenseController {
       id,
       dataToUpdate,
     );
-    return savedExpense;
+    return {
+      expense: savedExpense,
+      message: 'Expense updated successfully!',
+    };
+  }
+
+  @Delete('/:id')
+  async deleteUser(@Param('id') id: string) {
+    const expenseRemoved = await this.expenseEervice.deleteExpense(id);
+
+    return {
+      user: expenseRemoved,
+      message: 'Expense successfully deleted',
+    };
   }
 }
