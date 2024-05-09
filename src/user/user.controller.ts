@@ -14,6 +14,7 @@ import { v4 as uuid } from 'uuid';
 import { UserListDTO } from './dto/UserList.dto';
 import { UpdateUserDTO } from './dto/UpdateUser.dto';
 import { UserService } from './user.service';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @Controller('/users') // o @controler já nos da uma rota, como não passamos parametros a rota será a rota raiz, ou seja, 3000, agora se passar
 // uma rota dentro de controler isso será sua rota, nessa caso nossa rota é /usuarios
@@ -25,6 +26,7 @@ export class UserController {
 
   // private usuarioRepository = new UsuarioRepository();
 
+  @Public()
   @Post()
   async criateUser(@Body() dataUser: CreateUserDTO) {
     const userEntity = new UserEntity();

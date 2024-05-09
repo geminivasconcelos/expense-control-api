@@ -1,10 +1,6 @@
 import {
-  IsArray,
   IsEmail,
-  IsJSON,
   IsNotEmpty,
-  IsOptional,
-  IsString,
   MinLength,
 } from 'class-validator';
 import { EmailIsUnique } from '../validation/email-is-unique.validator';
